@@ -1,0 +1,94 @@
+A guide on debugging MPI code.
+Well, as most of us know, debugging MPI can really annoy you. So I've decided to make this tutorial on how to debug. I will show you how to expand your code to make it easier to spot bugs, and even what all those odd things that pop when the debug function is used. 
+First lets make a simple if statment (with errors). 
+
+{if:{eq:{name:me},{name:me},Hey, your the yourself,Who the heck are you?} 
+
+Now that line had about two errors in it, but lets pretend you can't see them. So here is what we do. Open up a text editor (such as note pad) since you can do it live instead of LSedit where you must go in a ".d 4, .i 1" etc.. 
+Now take that string and past it
+{if:{eq:{name:me},{name:me},Hey, your the yourself,Who the heck are you?}
+
+
+Now that line had about two errors in it, but lets pretend you can't see them. So here is what we do. Open up a text editor (such as note pad) since you can do it live instead of LSedit where you must go in a ".d 4, .i 1" etc.. 
+Now take that string and past it  
+{if:{eq:{name:me},{name:me},Hey, your the yourself,Who the heck are you?}
+Next we will expand it so only the start and end of brackets are on the same column, and commas are at the end of the pervious statement like so:
+
+{if:
+
+   {eq:
+
+      {name:me},
+
+     {name:me},
+
+ Hey, your the yourself,
+
+ Who the heck are you?
+
+}
+Now you will see that the eq function has no end bracket! You may also notice that a string of text does not have a '\' before the ',' This is very important! If you do not then the code will not work! So let's make the fix:
+{if:
+
+   {eq:
+
+     {name:me},
+
+     {name:me},
+
+   }
+
+ Hey\, your the yourself,
+
+ Who the heck are you?
+
+}
+And there you go, the code should work now.
+Another use is to get a sub-section of the code and figure out what is wrong with it, find your own spacing aspect and stick with it.
+
+Now it is time to tell you what all those things in the debug function mean.
+
+Lets start off with something simple:
+
+@mpi {debug:{name:me}}
+
+Now it will spew out a bunch of junk at you that looks like this (if your name is Drakain):
+
+(@mpi) {NAME:"me"}
+(@mpi) "me"
+(@mpi) {NAME:"me"} = "Drakain"
+Now, (@mpi) is what action triggered the code. AKA the {&how} if you run @mpi {&how} it will return (@mpi). Next, It trys to figure out what the name of "me" is. It then replaces "me" with the name "Drakain" since "me" is always the trigerer, and in this case "Drakain" was the trigger object. Now lets try something a little more complex.
+
+@mpi {debug:{ref:{name:me}} Hi {nl} 2 {nl}{isnum:hi2}}
+
+Now you will get a retun like this:
+
+(@mpi) {REF:"{name:me}"}
+(@mpi) {NAME:"me"}
+(@mpi) "me"
+(@mpi) {NAME:"me"} = "Drakain"
+(@mpi) {REF:"Drakain"} = "#176879"
+(@mpi) {NL:}
+(@mpi) {NL:} = "\r"
+(@mpi) {NL:}
+(@mpi) {NL:} = "\r"
+(@mpi) {ISNUM:"hi2"}
+(@mpi) "hi2"
+(@mpi) {ISNUM:"hi2"} = "0"
+(@mpi) "#176879 Hi \r 2 \r0"
+Now this may look crazy, but soon you will understand (hopefully).
+
+First it tries to discover the DBRef of the name of "me," it will dissect the code down until its lowest level, then plug that in and go back and do it again, so lets walk through this.
+
+It works inside of REF to get NAME of "me", it discovers the NAME of "me" is Drakain, now it puts that back into REF as a replacement of {name:me}, now it looks for the REF of "Drakain" and finds it. That is the end of that section of the code, next it will skip the text that serves no function to the code (it is not inside brackets at any point [other the debug brackets but those are excluded]).
+
+Next it will check to see what NL is equal to, since you may not know this I will tell you that instead of {nl} you can use \r instead of since that is what it really is; it is a carriage return. It will do this twice since it is in there twice
+
+Now it will return ISNUM. It will check ISNUM's argument to see if it is a number or not. In binary 0 is false and 1 is true, no exceptions to this. It will follow those rules here and since "hi2" is not a number it will return false, also known as "0". Lastly on the final line it will give the entire string. It knows that it is #176879 Hi \r 2 \r0 from the work it did above.
+
+Lastly I will show what happens when you have an error, for this I will use a simple example but without an end bracket.
+
+@mpi {debug:{ref:{name:me}}
+
+(@mpi) {debug}: End brace not found.
+So in errors it will simply tell you what the problem is (however not always where).

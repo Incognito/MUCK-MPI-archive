@@ -1,0 +1,13 @@
+/*
+For each exit you must do this: 
+    @set exit-name=timeexp:{gt:{subt:{prop:timer,1},{secs}},1} @lock exit-name=timeexp:1
+
+Your exits must have a number for the name. ie.Room [1];1
+And finaly you must input how many rooms there are:
+    @set r=_/#:Number-of-rooms-you-have
+*/
+
+
+@action request;r;re;req;requ;reque;reques=here 
+@link r=$nothing 
+@su request={if:{eq:{&arg},0},That is not a room!B,{if:{isnum:{&arg}},{if:{le:{&arg},{prop:_/#,requ}},{if:{prop:tooken,{&arg}},{if:{gt:{subt:{prop:timer,{&arg}},{secs}},0},That room is tooken!,{null:{store:0,tooken,{&arg}}}Can you please request room "{&arg}" again?},{null:{store:{add:{secs},172800},timer,{&arg}}{store:1,tooken,{&arg}}}Room "{&arg}" is open for 48 hours starting now.},That is not a Room!A},You must pick a number!}} 

@@ -1,0 +1,12 @@
+Tips to regnames
+
+Well in this guide there is not much to cover, however I felt it 
+would be useful to make a page on it.
+
+If you are creating a series of rooms you can always, insted of setting 
+regular reg names, make directories. For example, in my MPI Hack Me 
+Challange I used _reg/H/ as a dir for my room reg names, level one 
+would be stored as _reg/h/1 and level two as _reg/h/2 and the others
+would folow that order. You can easily jump from room to room with 
+'jump $h/1' if you wanted to jump to level one for example. Well thats
+about it and I hope you learnt somthing.

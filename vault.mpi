@@ -1,0 +1,28 @@
+@dig RoomA==tmp/roomA
+@set $tmp/roomA=S
+@propset $tmp/roomA=str:/_/de:---{nl}This is your room the vault is attached to. It's set S(ticky) incase you want to _link_ this room to another. To see a list of action type "VC". {nl}---
+@action vc=$tmp/roomA=tmp/vc
+@link $tmp/vc=$~nothing
+@propset $tmp/vc=str:/_/fl:{center:----------,40, }{nl}Show items <show> ---- Shows all Items.{nl}Withdraw <item> ---- Withdraws an Item that you own.{nl}Deposit <item> ---- Deposits an item.{nl}{center:----------,40, }
+@action deposit;withdraw=$tmp/roomA=tmp/dep
+@propset $tmp/dep=str:/_/sc:{if:{eq:{&CMD},withdraw},{if:{isnum:{Subst:{&arg},#,}},{if:{holds:{&arg},{prop:1,this}},{force:{prop:2,this},@tel {&arg}=me}{force:{prop:2,this},o}{force:{prop:2,this},@tel  {&arg}=here}{force:{prop:2,this},vr},Access to "{&arg}" not granted.},That is not a number! - You can only use the objects ref number to withdraw it!},{force:{prop:2,this},o}{force:{prop:2,this},@tel {&arg}=me}{force:{prop:2,this},vc}{force:{prop:2,this},@tel {&arg}=here}}
+@action show=$tmp/roomA=tmp/show
+@link $tmp/show=$~nothing
+@propset $tmp/show=str:/_/sc:You look through the window... {nl}{name:{prop:1,this}}{nl}{prop:_/de,{prop:1,this}}{nl}Items: {nl}{parse:a,{contents:{prop:1,this},thing},"{fullname:{&A}}({&a}{flags:{&a}})" - Owner: {subst:{owner:{&a}},*,}}
+@dig Vault Room==tmp/VR
+@propset $tmp/VR=str:/_/de:This is the Vault room for safe keeping, only an item's owner may withdraw that item, however anyone may deposit anything. Type VC for further details on usage.
+@zcreate Vault_Robot,Male,Otter,z
+@action o=$tmp/vr=tmp/o
+@mpi {store:{ref:$tmp/VR},1,$tmp/show}
+@mpi {store:{ref:$tmp/VR},1,$tmp/dep}
+@mpi {store:{ref:Vault_Robot},2,$tmp/dep}
+@mpi {store:{ref:Vault_Robot},_reg/tmp/robot,me}
+@rec z
+@flock $tmp/robot=$tmp/dep
+@unlink $tmp/vc
+@link $tmp/vc=$tmp/vr
+@link $tmp/o=$roomA
+@link $tmp/dep=$nothing
+@lock $tmp/vc=$tmp/Vault_Robot
+@set $tmp/o=d
+@tel $tmp/robot=$tmp/VR

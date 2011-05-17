@@ -1,0 +1,56 @@
+[Start Dump]
+@dig OOC Devbox-@do swap==tmp/room1
+@propset $tmp/room1=str:/_/de:------------------------------------------------------------
+@doing swaper
+------------------------------------------------------------
+@action @do-;@do-de;@do-di;@do-en;@do-ar;@do-co;@do-up;@do-fix=$tmp/room1=tmp/exit1
+@link $tmp/exit1=$~nothing
+@propset $tmp/exit1=str:/_/on?:0
+@propset $tmp/exit1=str:/_/sc:{if:{eq:{&arg},#help},{lexec:help/help.txt},{exec:/_coms/{subst:{&cmd},@,},this}}
+@propset $tmp/exit1=str:/_coms/do-:{lexec:help/help.txt,@do-}
+@propset $tmp/exit1=str:/_coms/do-ar:You set:{nl}{store:{&arg},/_set/arrive,this}{nl}to your ARRIVE setting{nl}This is the estimated ammout to be shown on the WHO list:{nl}{nl}=============================================={nl}={subber:{midstr:{prop:/_set/arrive,this},1,44}}={nl}==============================================
+@propset $tmp/exit1=str:/_coms/do-co:You set:{nl}{store:{&arg},/_set/con,this}{nl}to your CONNECT setting{nl}This is the estimated ammout to be shown on the WHO list:{nl}{nl}=============================================={nl}={subber:{midstr:{prop:/_set/con,this},1,44}}={nl}==============================================
+@propset $tmp/exit1=str:/_coms/do-de:You set:{nl}{store:{&arg},/_set/desc,this}{nl}to your DESC setting{nl}This is the estimated ammout to be shown on the WHO list:{nl}{nl}=============================================={nl}={subber:{midstr:{prop:/_set/desc,this},1,44}}={nl}==============================================
+@propset $tmp/exit1=str:/_coms/do-di:{null:{store:0,_/on?,@do-}}Swapper status: Off.
+@propset $tmp/exit1=str:/_coms/do-en:{null:{store:1,_/on?,@do-}}Swapper status: On.
+@propset $tmp/exit1=str:/_coms/do-up:You set:{nl}{store:{&arg},/_/do,this}{nl}This is what is shown on the WHO list:{nl}=============================================={nl}={subber:{midstr:{prop:/_/do,this},1,44}}={nl}==============================================
+@propset $tmp/exit1=str:/_msgmacs/on?:{prop:_/on?,do-}
+@propset $tmp/exit1=str:/_msgmacs/subber:{subst:{subst:{subst: {:1},%na,{name:me}},%loc,{name:here}},%ti,{ftime:%H\:%M\:%S}}
+@propset $tmp/exit1=str:/help/2/do-#:14
+@propset $tmp/exit1=str:/help/2/do-#/1: Welcome do @do-, this program is designed to swap your @doing
+@propset $tmp/exit1=str:/help/2/do-#/10:  @do-up
+@propset $tmp/exit1=str:/help/2/do-#/11:  @do-fix ! (Re-sets the command to the factory default.)
+@propset $tmp/exit1=str:/help/2/do-#/12: 
+@propset $tmp/exit1=str:/help/2/do-#/13: Placing #help next to any setting command will show you it's
+@propset $tmp/exit1=str:/help/2/do-#/14: specific help file.
+@propset $tmp/exit1=str:/help/2/do-#/2: setting automaticly based on several conditions that you set.
+@propset $tmp/exit1=str:/help/2/do-#/3: 
+@propset $tmp/exit1=str:/help/2/do-#/4: Setting commands are:        Setting shorts are:
+@propset $tmp/exit1=str:/help/2/do-#/5:  @do-de                       %na  (Name of trigger object)
+@propset $tmp/exit1=str:/help/2/do-#/6:  @do-di                       %ti  (Time)
+@propset $tmp/exit1=str:/help/2/do-#/7:  @do-en                       %loc (location name)
+@propset $tmp/exit1=str:/help/2/do-#/8:  @do-ar
+@propset $tmp/exit1=str:/help/2/do-#/9:  @do-co
+@propset $tmp/exit1=str:/help/2/do-ar#:2
+@propset $tmp/exit1=str:/help/2/do-ar#/1: Set the arrive setting.
+@propset $tmp/exit1=str:/help/2/do-ar#/2:  @do-ar [<setting text>]
+@propset $tmp/exit1=str:/help/2/do-co#:2
+@propset $tmp/exit1=str:/help/2/do-co#/1: Set the connection setting.
+@propset $tmp/exit1=str:/help/2/do-co#/2:  @do-co [<setting text>]
+@propset $tmp/exit1=str:/help/2/do-de#:3
+@propset $tmp/exit1=str:/help/2/do-de#/1: Triggered when your Description is triggered, use "@fix !" to
+@propset $tmp/exit1=str:/help/2/do-de#/2: re-append this setting onto it.
+@propset $tmp/exit1=str:/help/2/do-de#/3:  @do-ar [<setting text>]
+@propset $tmp/exit1=str:/help/2/do-di#:2
+@propset $tmp/exit1=str:/help/2/do-di#/1: Dissables the entire command.
+@propset $tmp/exit1=str:/help/2/do-di#/2:  @do-di
+@propset $tmp/exit1=str:/help/2/do-en#:2
+@propset $tmp/exit1=str:/help/2/do-en#/1: Enables the entire command.
+@propset $tmp/exit1=str:/help/2/do-en#/2:  @do-en
+@propset $tmp/exit1=str:/help/2/do-up#:2
+@propset $tmp/exit1=str:/help/2/do-up#/1: Updates the current command with the given string.
+@propset $tmp/exit1=str:/help/2/do-up#/2:  @do-ar [<setting text>]
+@propset $tmp/exit1=str:/help/help.txt#:2
+@propset $tmp/exit1=str:/help/help.txt#/1:{&cmd}, by Drakain.{nl}
+@propset $tmp/exit1=str:/help/help.txt#/2:{list:help/2/{subst:{&cmd},@,},@do-}{nl} Version 1.5
+[End Dump]

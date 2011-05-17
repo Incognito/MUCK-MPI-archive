@@ -1,0 +1,30 @@
+Penny pincher (A guide to saving pennies)
+
+Well, you may be wondering how you can save your pennies 
+when building. The secret is props!
+
+Props are very undervalued. You can use one command for 
+just about every command in that room (not exits however) 
+with the prop function. Simply make one command and set 
+second or even third names, for example:
+
+    +hi;cow;moo;wave;eat
+
+We can take those command and use 
+    {prop:commands/{&cmd},{&cmd}}. 
+
+What this will do is use the prop for that command, 
+the prop would be stored on the same action. Now insted 
+of setting an @succ for each command, set one
+    @succ "{prop:commands/{&cmd},{&cmd}}" 
+
+and @set what you want the @succ for that action like so:
+
+    @set <command>=commands/<command SUCC you wish to set>:<the succ message for that command>
+
+Now you know how to cut back on that. Next, and lastly, 
+I will cover Rooms.
+
+They are not exactly very useful in many situations, but they 
+can be used in some. Simply use the if function to check where
+you should be according to a prop.

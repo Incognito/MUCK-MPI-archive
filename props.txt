@@ -1,0 +1,30 @@
+Prop Cheatsheet
+
+Prop Directory    Does what
+/_/de	Description prop.
+/_/do	"@doing" prop.
+/_/fl	Fail prop.
+/_/lok	Lock prop; value=key (boolean can be used).
+/_/su	Success prop.
+/_/osu	Osuccess prop; "out loud" success.
+/_/ofl	Ofail prop; "out loud" fail.
+/_msgmacs/	All custom made macros go here (see MPI Macros).
+/_reg/	All Reg names go here, they can be stored in dirs down from here too.
+/_pinfo/	Player information, may be stored in /~pinfo/ depending on muck.
+/help/help	+help message set here, can use lists by setting the value to &{list:list,object}
+/_/dr	The message that is triggered on an object's drop.
+/_/odr	The message that is triggered on an object's out-loud drop.
+_/ide	This is where the "inside description" is set, only useful for vehicles.
+_connect/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to the current player that has connected. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+_oconnect/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to all players in the room that the player who has connected is in. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+_odisconnect/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to all players in the room that the player who has connected is in. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+_disconnect/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to the current player that has disconnected. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+_oarrive/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to all players in the room that the player who has just arrived there is in. It works as a global setting (ie. parent rooms). You must place & before the message or it will not display!
+_arrive/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to the current player that has just arrived. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+_odepart/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to all players in the room that the player who has just departed is in. It works as a global setting (ie. parent rooms). You must place & before the message or it will not display!
+_depart/XXX	This prop will run all of its props under it (that is where XXX is, any directory), to the current player that has just departed. It works as a global setting (ie. parent rooms) or on your person. You must place & before the message or it will not display!
+~listen/XXX	How to set value: *Say/pose-text-here*=&Action-text-here
+This will trigger the action text on the current player (success type) when they say or pose the text between the *s. You need a W-bit or ask a wizard to set this since it has a ~.
+~olisten/XXX	How to set value: *Say/pose-text-here*=&Action-text-here
+This will trigger the action text on all other players (o-success type) when they say or pose the text between the *s. You need a W-bit or ask a wizard to set this since it has a ~.
+Some props are not the same on most mucks (ie. _sleep is usualy where it keeps the command for where to move sleepers to) so they have been excluded.

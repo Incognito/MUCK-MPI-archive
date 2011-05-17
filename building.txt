@@ -1,0 +1,90 @@
+[2011 Note: when I was 12 years old and wrote this, my spelling was *AWFUL*, I'm sorry].
+
+
+Building
+
+Well to begin there are different kinds of commands to build:
+
+@action
+@create
+@fail
+@link
+@ofail
+@osuccess
+@success
+@unlink    @attach
+@describe
+@dig
+@lock 
+@name
+@open
+@recycle
+@unlock
+Now 16 may seem like a lot, however it isn't. I will start with basic building then more onto some more detailed commands (but no MPI will be used!).
+
+Now, to start building I will teach you how to build your own small region correctly.
+
+So, to start we will need to work with @dig.
+
+Let's make a region parent, this is where all of your rooms will be. All of your child rooms will be parented in here.
+
+So lets begin. @Dig works like this: @dig <room> [=<parent> [=<regname>]]
+
+So now since it will not have a parent because it is the parent, we will name it something like this: "@dig Parent Room==parent". There are two equal signs because there is no parent; the parent would be between them. Also it has 'parent' on the end so you can now make rooms in $parent, this will set the room to be inside of the parent room.
+
+Now that you have a parent room, how about making yourself an office? Now, @dig your office like this: @dig My Office=$parent. You are setting $parent as your parent room, reg names are prefixed with $ when you are using them, but when you are setting them they are not. Now, go to your Office. It should have given you a DBRef number and put something along the lines of: 'My Office' created as #...
+
+Use that number and goto that room, use "@tel me=<number>" or "jump <number>" to get there.
+
+Ah so you have an office, now what? Well you can dive it a description! To do this use @desc <thing>=<description> to set a desctiption. For example: @desc here=You are in your office, it has a chair behind a desk blah blah blah some words to make it look and sound nice... And when you look at the room it will give the Name, then below it the Description, and below that the Exits, and below those finaly the room's contents. If you would like a boarder you can always go back to the main page and get the Description Buddy.
+
+Now lets make you a chair. To do this we use @create <object>.
+
+So lets begin! @create A chair. Ok, so I did that, now what? Well all objects are created in your inventory, so you will have to drop it. Now that it is in the room, you may wish to set a description on it. @desc a chair=Well it is a chair... and blah blah blah blah blah.
+
+Well congratulations you have a chair in your office, you may also wish you make a desk and a coat rack but you entire office is up to you; it's yours. Now lets say you want to re-name something, to do that @name <thing>=<new name>.
+
+Now you may want an action to sit in that chair you made, well that's not hard at all! To do this we use @action. It works like this: @act <action name>=<where you want it>. So lets make an action! @act sit=a chair will make the action sit, and put it on the chair. Actions can be accessed by any child room in a parent room, or off of a "thing" type object in a room (so you can make actions on yourself without other players being able to use them). Now you need to link the action to someting, this is where $nothing (personally use $n because I created a personal regname for that but that's not important) comes in because exits try to move you some where (or start a MUF program), $nothing is a MUF program actually, however it does nothing and goes no where, therefor it is perfect for creating actions. Now you have the action and linked it. Now what? Well, now we set a success (and an osuccess) message for the action. Success messages are messages that you see and Osuccess messages are ones that only other people in the same room as you see when the action is triggered. To set these we use @succ and @osucc respectivly to what was mentioned perviously. Now both commands work @(o)succ <command>=<message>. So lets set something... @succ sit=You sit down in the chair. and @osucc sit=sits down in a chair. the osucc doesn't have a name because the persons name is prefixed before the statement.
+
+Ok so now what? Well you can make another room, call it closet, and parent it too!
+
+Now we can open an exit to your closet! We do this with @open.
+
+Before I go on you should know about the ";" it is very useful. It gives objects a second or third (and so on...) name! ie. "Name one (the default name);name two;name three;name four;name five" (etc...). Now exit names only show the first name when you look at a room. If you have seen an exit you would know they look something like this: [N]orth. Well the reason you can press N and go north is because that exit has a second name! And that name is "n" therefore both names will do the same thing.
+
+Now lets get back to the command! @open works like this: @open <exit name>=<location you are headed to>. It makes the exit inside the current room. Now lets make that exit to the closet! @open [C]losit;c=<closet's ref number>. You can see that it's second name is C with respect to its letters in brackets. Remember, you can always re-name an exit! However when you do re-name you do it to every name, remember that! Ok, so you have an exit to the closet, now folow the exit! Ah, you are in the closet. Now you can set a description here if you would like, but its not important. Simply make another exit out of here and go back to your office. On a lighter note, remember how I said action work globally (in your area) if in your parent? Same with exits.
+
+Okay, so your in your office again. You may want to set this as your home so the next time you are on the game you will start here (if you don't you can always type "gohome" and you will be home again). To do this you can link yourself here. It's easy, @link sets an object's home, so simply @link here=me.
+
+Now, lets say you want only you to go into your closet, well this is easy, and can be done with @lock! @lock uses Boolean expressions to lock exits, in fact I'll take a good part of it directly from the help file then expand on it:
+
+@lock <object>=<key>. Locks <object> to a specific key(s). <object> can be
+specified as <name> or #<number>, or as 'me' or 'here'. Boolean expressions
+are allowed, using '&' (and), '|' (or), '!' (not), and parentheses
+('(' and ')') for grouping. To lock to a player, prefix their name with '*'
+(ex. '*Igor'). A key may be a player, an object...
+@lock will lock <object> and only opens that exit (other things too but I will get to that later on) to some one with the "key".
+
+So, lets lock that exit to you and you only. @lock c=me Simple, no? Now lets say you want it to lock to only you and your friend. Well you can do that too! Just use the Boolean or function (" | "). So instead of me you use *<your name>|*<friend's name>. However you can always reverse a lock with ! (not), and even lock something so no one can get into it with me&!me because it is looking for you and not you, since that cannot ever happen, it will fail and not open.
+
+You can also lock to props, but that (usually) requires MPI and I am staying away from any MPI in this tutorial.
+
+If you made something that you no longer want, simply @rec it, it will get rid of the object.
+
+And lastly, any command ie. @unlock simply unlocks the object, @unlink will unlink the object, etc...
+
+
+Well there you go you now have a good understanding (I would hope) of how to build. If you wish to learn more then scroll down and I will tell you a few cool things you can do! At this point I hold you at a higher level and will not say how a command works.
+
+There is more to @link then setting your home or setting an exits destination.
+
+You can link exits to objects, and rooms to rooms as well! But what does this do? Well when you link an action (AKA an exit) to a "thing" type object, it will place the object it is linked to in your inventory if you have it, or in the current room if its on an exit or thing in the room.
+When you link one room to another it moves any object that is dropped to that room, not objects in it, but ones that have been dropped. Objects that are sent to another room that is linked will not go to the next if it is linked as well (or else it would be an endless loop and the object would never stop moving). If you would like to get an object into that room without setting the @link again, simply use @teleoport to that room.
+
+Now If you want to set an object so no one can pick it up then @lock the object the same way you would set up a door. If some one has @locked an object in your room and think they are so smart and you will never get rid of it simply @tel it to yourself, from there you can drop or @tel it to another room you own (ie a Garbage Pit ;);; ).
+
+This bring me onto @fail and @ofail, it works like @succ and @osucc respectivly, however it is only triggered when the person does not pass a lock, this can be used on exits and objects that are locked, when some one uses an exit they cannot, it will trigger the fails, when some one trys to get an object that is locked it will trigger the fails.
+
+And that is it, the only thing left to do is learn MPI and mabye some MUF too.
+
+ 

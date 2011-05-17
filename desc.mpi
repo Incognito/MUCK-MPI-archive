@@ -1,0 +1,15 @@
+@act +d;+pad;+far;=me
+@lin +d=$nothing
+@su +d={if:{eq:{&arg},#help},{lexec:help.txt,+d},{eval:{prop:{&cmd}}}}
+@set +d=/+pad:{store:{&arg},de/pad,+d} Is now the pad-string.
+@set +d=/+far:{if:{isnum:{&arg}},{store:{&arg},de/far,+d} Is now the feild-width.,That is not a number!}
+@set +d=/+d:{if:{eq:{owner:here},*{name:me}},{store:{center:,{prop!:de/far,+d},{prop!:de/pad,+d}}{nl}{&arg}{nl}{center:,{prop!:de/far,+d},{prop!:de/pad,+d}},_/de,here}{nl} ---Set as _/de prop!,You don't own this room!}
+@set +d=/de/pad:-
+@set +d=/de/far:60
+@set +d=/help/help:&{lexec:help.txt,+d}
+@set +d=/help.txt#/1:+d\, by Drakain.
+@set +d=/help.txt#/2:{nl}Useage:
+@set +d=/help.txt#/3:{nl} +d -- Set the description with the boarder inplace.
+@set +d=/help.txt#/4:{nl} +pad [<padstring>] -- Set the padstring (pattern).
+@set +d=/help.txt#/5:{nl} +far [<feildwidth>] -- Set the legenth of the padstring.
+@set +d=/help.txt#/6:{nl} Version 1.7
